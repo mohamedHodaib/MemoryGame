@@ -7,7 +7,7 @@ Players take turns flipping cards to find matching pairs. The player with the hi
 
 ## Demo
 
-* **Live Demo**: (Add your deployed link here)
+* **Live Demo**: [Memory Game](https://mohamedhodaib.github.io/MemoryGame/)
 
 ---
 
