@@ -1,4 +1,3 @@
-```markdown
 # Memory Game
 
 A fun and interactive **2-Player Memory Card Matching Game** built with **HTML, CSS, and Vanilla JavaScript**.  
@@ -8,7 +7,7 @@ Players take turns flipping cards to find matching pairs. The player with the hi
 
 ## Demo
 
-* **Live Demo**: (Add your live demo link here if deployed)
+* **Live Demo**: (Add your deployed link here)
 
 ---
 
@@ -16,12 +15,12 @@ Players take turns flipping cards to find matching pairs. The player with the hi
 
 Memory Game is a browser-based card matching game designed for two players.
 
-The game consists of multiple cards placed face down. Each player takes turns flipping two cards:
+The game consists of multiple cards placed face down in a grid layout. Each player takes turns flipping two cards:
 
-- If the cards match → the player earns a point and continues.
-- If they do not match → the cards flip back, and the turn switches.
+- If the cards match → the player earns a point and continues playing.
+- If the cards do not match → the cards flip back after a short delay and the turn switches.
 
-The game ends when all pairs are matched, and the player with the highest score is declared the winner.
+The game ends when all pairs are matched, and the winner is automatically displayed.
 
 ---
 
@@ -48,50 +47,49 @@ The game ends when all pairs are matched, and the player with the highest score 
 
 * 🎮 **Two-Player Mode**
 * 🔀 **Random Card Shuffle** at the start of every game
-* 🎴 **Card Flip Animation** with smooth CSS 3D transforms
+* 🎴 **Smooth 3D Card Flip Animation**
 * 🔊 **Sound Effects**
   * Success sound for matched cards
   * Fail sound for incorrect matches
 * 🏆 **Automatic Score Tracking**
 * 🔁 **Turn Switching System**
-* 🎨 **Dynamic Background Change** based on current player
-* 🛑 **Click Prevention** while checking mismatched cards
-* 📱 **Responsive Layout** for different screen sizes
-* 🔄 **Play Again Button** to reset and reshuffle the game
+* 🎨 **Dynamic Background Color** based on current player
+* 🛑 **Click Prevention** during card comparison
+* 📱 **Fully Responsive Layout**
+* 🔄 **Play Again Button** to restart the game instantly
 
 ---
 
 ## How to Play
 
-1. Click **Start Game**
-2. Player 1 begins
-3. Click on two cards to flip them
+1. Click the **Start Game** button.
+2. Player 1 begins the game.
+3. Click on two cards to flip them.
 4. If the cards match:
-   - Player earns a point
-   - Cards remain revealed
-   - Player continues
+   - The player earns 1 point.
+   - The cards remain revealed.
+   - The same player continues.
 5. If the cards do not match:
-   - Cards flip back
-   - Turn switches to the other player
-6. Continue until all pairs are matched
-7. The winner is announced automatically
-8. Click **Play Again** to restart
+   - A fail sound plays.
+   - The cards flip back.
+   - The turn switches to the other player.
+6. Continue until all pairs are matched.
+7. The game over screen will display the winner and final score.
+8. Click **Play Again** to reshuffle and restart.
 
 ---
 
 ## Project Structure
 
 ```
-
 MemoryGame/
-├── index.html        # Game structure and layout
-├── main.css          # Styling and animations
+├── index.html        # Game layout and structure
+├── main.css          # Styling, animations, and responsive design
 ├── main.js           # Game logic and interactions
 ├── images/           # Technology card images
 ├── audio/            # Success and fail sound effects
 └── README.md         # Project documentation
-
-````
+```
 
 ---
 
@@ -110,33 +108,34 @@ The game includes matching pairs of the following technologies:
 * Angular
 * MongoDB
 
-Each technology appears twice, creating matching pairs.
+Each technology appears twice to create matching pairs.
 
 ---
 
 ## Technologies Used
 
 ### HTML5
-* Semantic structure
-* Card grid layout
-* Audio elements
+- Semantic layout
+- Card structure
+- Audio elements
 
 ### CSS3
-* CSS Grid for layout
-* 3D flip animations using `transform`
-* Responsive media queries
-* Smooth transitions
-* Dynamic backgrounds
+- CSS Grid for layout
+- 3D transforms (`rotateY`)
+- Smooth transitions
+- Media queries for responsiveness
+- Animated start screen
+- Dynamic backgrounds
 
 ### JavaScript (Vanilla)
-* DOM manipulation
-* Event handling
-* Shuffle algorithm (Fisher-Yates)
-* Game state management
-* Turn switching logic
-* Score calculation
-* Audio control
-* Game reset functionality
+- DOM manipulation
+- Event listeners
+- Shuffle algorithm (Fisher-Yates)
+- Match checking logic
+- Turn management system
+- Score tracking
+- Audio playback control
+- Game reset functionality
 
 ---
 
@@ -148,9 +147,9 @@ To run the project locally:
 
 ```bash
 git clone https://github.com/your-username/memory-game.git
-````
+```
 
-2. Navigate into the project folder:
+2. Navigate to the project folder:
 
 ```bash
 cd memory-game
@@ -164,37 +163,38 @@ No additional dependencies or build tools are required.
 
 ## Game Logic Overview
 
-### Card Shuffle
+### Shuffle Mechanism
 
-The game uses a shuffle function to randomize card order each time the game starts.
+Cards are shuffled using a randomized order array before rendering.
 
 ### Flip Logic
 
 * Adds `is-flipped` class when clicked
-* Checks if two cards are flipped
+* Collects flipped cards
 * Compares `data-technology` attributes
 
-### Matching Logic
+### Matching System
 
 If matched:
 
-* Adds `is-matched` class
-* Updates current player's score
+* Removes `is-flipped`
+* Adds `is-matched`
+* Updates player score
 * Plays success sound
 
 If not matched:
 
 * Plays fail sound
-* Prevents clicking temporarily
+* Temporarily disables clicking
 * Flips cards back after delay
-* Switches player turn
+* Switches active player
 
 ### Game End Detection
 
 The game ends when:
 
 ```
-Number of matched cards === Total number of cards
+document.querySelectorAll('.is-matched').length === totalCards
 ```
 
 A game over panel appears displaying:
@@ -207,69 +207,86 @@ A game over panel appears displaying:
 
 ## Audio Effects
 
-Two audio files are used:
+Two audio files are included:
 
 * `success.mp3` → Played when a match is found
-* `fail.mp3` → Played when cards do not match
+* `fail.mp3` → Played when a mismatch occurs
 
-Audio is reset (`currentTime = 0`) before replaying to ensure immediate feedback.
+Audio is reset before playback to ensure immediate response:
+
+```javascript
+audio.currentTime = 0;
+audio.play();
+```
 
 ---
 
 ## Configuration
 
-You can customize:
+You can customize the game by modifying variables inside `main.js`.
 
-### 🎯 Flip Duration
+### Flip Duration
 
 ```javascript
 let duration = 1000;
 ```
 
-Controls how long mismatched cards stay flipped.
+Controls how long mismatched cards remain flipped.
 
-### 🎨 Player Background Colors
+---
+
+### Player Background Colors
+
+Modify inside these functions:
 
 ```javascript
-AddPlayer1Background();
-AddPlayer2Background();
+function AddPlayer1Background() {
+    document.body.style.backgroundColor = 'lightblue';
+}
+
+function AddPlayer2Background() {
+    document.body.style.backgroundColor = 'lightcoral';
+}
 ```
 
-Modify background colors inside these functions.
+---
 
-### 🃏 Add or Remove Cards
+### Add or Remove Cards
 
-To add new technologies:
+To add new cards:
 
-1. Duplicate a `.game-block` in `index.html`
-2. Update the `data-technology` attribute
-3. Add corresponding image inside `/images`
-
-Make sure every card has exactly one matching pair.
+1. Duplicate a `.game-block` inside `index.html`
+2. Change the `data-technology` attribute
+3. Add the matching image inside `/images`
+4. Ensure every card has exactly one matching pair
 
 ---
 
 ## Responsive Design
 
-The layout adapts to different screen sizes:
+The grid layout adapts based on screen width:
 
-* 5×4 grid on large screens
-* 4×5 grid on tablets
-* 3×7 grid on small mobile devices
-* Score positions adjust for mobile view
-* Buttons scale using `clamp()` and media queries
+* Desktop → 5 × 4 grid
+* Tablet → 4 × 5 grid
+* Mobile → 3 × 7 grid
+
+Additional adjustments:
+
+* Score positions change on smaller screens
+* Buttons scale down
+* Layout centers vertically on small devices
 
 ---
 
 ## Future Improvements
 
-* Add single-player mode
-* Add timer mode
+* Add single-player (vs AI) mode
+* Add timer functionality
 * Add difficulty levels
 * Add move counter
-* Add animations for winner
-* Store scores in `localStorage`
-* Add multiplayer (online) support
+* Add score storage using `localStorage`
+* Add online multiplayer support
+* Improve animations and visual effects
 
 ---
 
@@ -287,11 +304,13 @@ This project is open source and available under the **MIT License**.
 
 ## Contributing
 
-Feel free to fork this project and submit pull requests for improvements or new features!
+Contributions are welcome!
+
+1. Fork the repository
+2. Create a new branch
+3. Make improvements
+4. Submit a pull request
 
 ---
 
-Enjoy the game! 🎴✨
-
-```
-```
+🎴 Enjoy playing the Memory Game!
