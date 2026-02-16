@@ -101,7 +101,6 @@ body {
         text-align: center;
         text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
         letter-spacing: 2px;
-        margin: 0 20px;
         line-height: 1.4;
         animation: slideDown 0.8s ease-out;
         -webkit-animation: slideDown 0.8s ease-out;
