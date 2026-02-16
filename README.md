@@ -11,6 +11,16 @@ Players take turns flipping cards to find matching pairs. The player with the hi
 
 ---
 
+## Screen Shots
+
+### Desktop View
+![Desktop View](./images/desktopview.png)
+
+### Mobile View
+![Mobile View](./images/mobileview.png)
+
+---
+
 ## Introduction
 
 Memory Game is a browser-based card matching game designed for two players.
