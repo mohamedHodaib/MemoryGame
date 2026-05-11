@@ -81,16 +81,24 @@ body {
     height: 100%;
     z-index: 3;
     background-color: rgba(3, 169, 244, 0.9);
-    span {
-        position: absolute;
-        left: 50%;
-        top: 50%;
-        transform: translate(-50%, -50%);
-        -webkit-transform: translate(-50%, -50%);
-        -moz-transform: translate(-50%, -50%);
-        -ms-transform: translate(-50%, -50%);
-        -o-transform: translate(-50%, -50%);
+    .game-options {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 300px;
+        #opponent-type {
+            padding: 15px;
+            font-size: 20px;
+            border-radius: 8px;
+            border: none;
+            outline: none;
+        }
     }
+    
     h1 {
         position: absolute;
         top: 30%;
