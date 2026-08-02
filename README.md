@@ -261,6 +261,27 @@ function AddPlayer2Background() {
 
 ---
 
+## AI Opponent
+
+This project includes an optional AI opponent that can play as Player 2. The AI implementation lives in `main.js` and is designed to demonstrate a simple decision loop, memory of previously revealed cards, and an external model integration (Gemini) for move selection.
+
+- Enable the AI: choose the AI option in the opponent selector (`#opponent-type`) in the UI, or set `gameMode = "ai"` in `main.js`.
+- Key constants: `GEMINI_API_URL`, `FLIP_DELAY`, and `MATCH_DURATION` control where the model is called and timing for flips and comparisons.
+- AI memory: the AI keeps a `revealedMemory` object mapping block indices to known technologies (cards it has seen but that are not yet matched).
+- Move selection: the AI calls `getGeminiMove()` with the current visible state. The function builds a prompt describing only the cards the AI has seen and asks the model to return a JSON object with `{"first":<index>,"second":<index>}`.
+- Validation & fallback: responses from the model are validated. If Gemini returns invalid indices or the request fails, the code falls back to a deterministic random strategy implemented in `getRandomMove()`.
+
+Security note: do NOT store API keys in client-side code. `getApiKey()` in `main.js` currently reads from `window.__GEMINI_KEY__` for convenience, but you should proxy requests through a secure backend endpoint that injects the key server-side.
+
+Customization tips:
+
+- To make the AI faster or slower, adjust `FLIP_DELAY` and `MATCH_DURATION` in `main.js`.
+- To improve the AI's play, modify the prompt in `getGeminiMove()` or enhance `revealedMemory` logic to track probabilities or counts.
+- For production, implement a backend route (for example `/api/gemini-move`) that the client calls; the backend should call the Gemini API with your key and return only the model's move.
+
+See the AI implementation in `main.js` for exact details and to experiment with different prompts and memory strategies.
+
+
 ### Add or Remove Cards
 
 To add new cards:
